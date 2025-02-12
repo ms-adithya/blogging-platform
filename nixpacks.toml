@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ["python310", "pip", "gunicorn"]  # Added Gunicorn here
+nixPkgs = ["python310", "pip"]
 
 [phases.build]
 cmds = ["pip install --upgrade pip", "pip install -r requirements.txt"]
