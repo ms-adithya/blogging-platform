@@ -23,9 +23,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-d*km(*yq6p6abw6k5@c(94^72j8qiazwcmuw=bnk826@0bsug@'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+import os
+import dj_database_url
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "blogging-platform-2135.onrender.com",  # Add your Render domain
+    "localhost",
+    "127.0.0.1"
+]
 
 AUTH_USER_MODEL = 'authentication.CustomUser'
 
@@ -87,9 +93,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blog_project.wsgi.application'
 
-
+DATABASES = {
+    'default': dj_database_url.config(default=os.getenv('postgresql://blog_db_z1a1_user:8KFkkmJMKYLQ5WWEzj2Laf0eCaDZmXTJ@dpg-cum7ro9opnds73d8k910-a/blog_db_z1a1'))
+}
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
 
 DATABASES = {
     'default': {
