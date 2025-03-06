@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('blogs.urls')),  # Include API URLs
     path('api/auth/', include('authentication.urls')),
+    path("", include("blogs.urls")),
 ]
 
 from django.conf import settings

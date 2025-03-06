@@ -5,6 +5,11 @@ from .pagination import StandardResultsSetPagination  # Import pagination
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from .filters import BlogPostFilter
+from django.shortcuts import render
+
+
+def home(request):
+    return render(request, "index.html")  # This will now load from the frontend folder
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
