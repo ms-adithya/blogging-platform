@@ -153,9 +153,27 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:5500",  # Allow local frontend with VS Code
-    "http://127.0.0.1:8000", # Allow local frontend Django
-    #"https://yourfrontenddomain.com",  # If you deploy frontend
+    "http://127.0.0.1:5500",  # 🔹 Local frontend VS Code
+    "http://127.0.0.1:8000",  # 🔹 Local frontend Django
+    "https://blogging-platform-2135.onrender.com",  # 🔹 Deployed frontend (if any)
 ]
 
-CORS_ALLOW_CREDENTIALS = True #Allow cookies for authentication
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:8000",
+    "https://blogging-platform-2135.onrender.com",
+]
+
+CORS_ALLOW_CREDENTIALS = True  # 🔹 Important for authentication
+
+# Allow authentication headers
+CORS_ALLOW_HEADERS = [
+    "authorization",
+    "content-type",
+    "x-csrftoken",
+    "accept",
+    "origin",
+    "user-agent",
+    "x-requested-with",
+]
+

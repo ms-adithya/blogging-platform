@@ -41,6 +41,7 @@ async function createBlogPost(title, content) {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
+      credentials: "include", // 🔹 Ensure credentials are included
       body: JSON.stringify({ title, content }),
     });
 
@@ -63,6 +64,7 @@ async function loginUser(username, password) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include", // 🔹 Important for authentication
       body: JSON.stringify({ username, password }),
     });
 
