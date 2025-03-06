@@ -153,7 +153,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:5500",  # Allow local frontend
-    "http://127.0.0.1:8000",
+    "http://127.0.0.1:5500",  # Allow local frontend with VS Code
+    "http://127.0.0.1:8000", # Allow local frontend Django
     #"https://yourfrontenddomain.com",  # If you deploy frontend
 ]
+
+CORS_ALLOW_CREDENTIALS = True #Allow cookies for authentication
