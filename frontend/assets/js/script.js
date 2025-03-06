@@ -135,3 +135,42 @@ function setupEventListeners() {
     updateUIAfterLogout();
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const loginModal = document.getElementById("login-modal");
+  const registerModal = document.getElementById("register-modal");
+
+  const openLoginBtn = document.getElementById("open-login-modal");
+  const openRegisterBtn = document.getElementById("open-register-modal");
+
+  const closeLoginBtn = document.getElementById("close-login");
+  const closeRegisterBtn = document.getElementById("close-register");
+
+  // Open modals
+  openLoginBtn.addEventListener("click", () => {
+    loginModal.style.display = "block";
+  });
+
+  openRegisterBtn.addEventListener("click", () => {
+    registerModal.style.display = "block";
+  });
+
+  // Close modals
+  closeLoginBtn.addEventListener("click", () => {
+    loginModal.style.display = "none";
+  });
+
+  closeRegisterBtn.addEventListener("click", () => {
+    registerModal.style.display = "none";
+  });
+
+  // Close modals when clicking outside
+  window.addEventListener("click", (event) => {
+    if (event.target === loginModal) {
+      loginModal.style.display = "none";
+    }
+    if (event.target === registerModal) {
+      registerModal.style.display = "none";
+    }
+  });
+});
