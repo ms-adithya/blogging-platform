@@ -3,28 +3,26 @@ import { getBlogPosts, createBlogPost, loginUser, logoutUser } from "./api.js";
 document.addEventListener("DOMContentLoaded", async () => {
   await displayBlogPosts(); // Load blog posts on page load
   setupEventListeners(); // Set up button click listeners
+  setupModals(); // Setup modal event listeners
 });
 
-// Function to display blog posts on the page
+// Function to display blog posts
 async function displayBlogPosts() {
   const blogPosts = await getBlogPosts();
-  console.log("Blog Posts:", blogPosts); // Debugging line
+  console.log("Blog Posts:", blogPosts);
 
   if (!Array.isArray(blogPosts)) {
     console.error("Expected an array but got:", blogPosts);
-    return; // Stop execution to avoid errors
+    return;
   }
 
   const blogContainer = document.getElementById("blog-container");
-  blogContainer.innerHTML = ""; // Clear previous content
+  blogContainer.innerHTML = "";
 
   blogPosts.forEach((post) => {
     const postElement = document.createElement("div");
     postElement.classList.add("blog-post");
-    postElement.innerHTML = `
-      <h2>${post.title}</h2>
-      <p>${post.content}</p>
-    `;
+    postElement.innerHTML = `<h2>${post.title}</h2><p>${post.content}</p>`;
     blogContainer.appendChild(postElement);
   });
 }
@@ -41,19 +39,16 @@ async function handleRegister(event) {
       "https://blogging-platform-2135.onrender.com/api/auth/register/",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password }),
       }
     );
 
-    if (!response.ok) {
-      throw new Error("Registration failed");
-    }
+    if (!response.ok) throw new Error("Registration failed");
 
     alert("Registration successful! You can now log in.");
     document.getElementById("register-form").reset();
+    document.getElementById("register-modal").style.display = "none"; // Close modal
   } catch (error) {
     console.error("Error registering:", error);
     alert("Error during registration. Please try again.");
@@ -70,6 +65,7 @@ async function handleLogin(event) {
   if (token) {
     alert("Login successful!");
     document.getElementById("login-form").reset();
+    document.getElementById("login-modal").style.display = "none"; // Close modal
     updateUIAfterLogin();
   } else {
     alert("Login failed! Please check your credentials.");
@@ -93,7 +89,7 @@ async function handleCreatePost(event) {
   if (newPost) {
     alert("Blog post created successfully!");
     document.getElementById("create-post-form").reset();
-    displayBlogPosts(); // Refresh the blog posts list
+    displayBlogPosts();
   } else {
     alert("Failed to create blog post. Make sure you're logged in.");
   }
@@ -119,14 +115,16 @@ function updateUIAfterLogout() {
 function setupEventListeners() {
   document
     .getElementById("register-form")
-    .addEventListener("submit", handleRegister);
-  document.getElementById("login-form").addEventListener("submit", handleLogin);
+    ?.addEventListener("submit", handleRegister);
+  document
+    .getElementById("login-form")
+    ?.addEventListener("submit", handleLogin);
   document
     .getElementById("logout-button")
-    .addEventListener("click", handleLogout);
+    ?.addEventListener("click", handleLogout);
   document
     .getElementById("create-post-form")
-    .addEventListener("submit", handleCreatePost);
+    ?.addEventListener("submit", handleCreatePost);
 
   // Check if user is logged in on page load
   if (localStorage.getItem("accessToken")) {
@@ -136,7 +134,8 @@ function setupEventListeners() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+// Function to set up modals
+function setupModals() {
   const loginModal = document.getElementById("login-modal");
   const registerModal = document.getElementById("register-modal");
 
@@ -146,25 +145,30 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeLoginBtn = document.getElementById("close-login");
   const closeRegisterBtn = document.getElementById("close-register");
 
-  // Open modals
-  openLoginBtn.addEventListener("click", () => {
-    loginModal.style.display = "block";
-  });
+  if (openLoginBtn) {
+    openLoginBtn.addEventListener("click", () => {
+      loginModal.style.display = "block";
+    });
+  }
 
-  openRegisterBtn.addEventListener("click", () => {
-    registerModal.style.display = "block";
-  });
+  if (openRegisterBtn) {
+    openRegisterBtn.addEventListener("click", () => {
+      registerModal.style.display = "block";
+    });
+  }
 
-  // Close modals
-  closeLoginBtn.addEventListener("click", () => {
-    loginModal.style.display = "none";
-  });
+  if (closeLoginBtn) {
+    closeLoginBtn.addEventListener("click", () => {
+      loginModal.style.display = "none";
+    });
+  }
 
-  closeRegisterBtn.addEventListener("click", () => {
-    registerModal.style.display = "none";
-  });
+  if (closeRegisterBtn) {
+    closeRegisterBtn.addEventListener("click", () => {
+      registerModal.style.display = "none";
+    });
+  }
 
-  // Close modals when clicking outside
   window.addEventListener("click", (event) => {
     if (event.target === loginModal) {
       loginModal.style.display = "none";
@@ -173,4 +177,4 @@ document.addEventListener("DOMContentLoaded", () => {
       registerModal.style.display = "none";
     }
   });
-});
+}
