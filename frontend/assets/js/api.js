@@ -19,7 +19,10 @@ async function getBlogPosts() {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+    console.log("Fetched Blog Posts:", data); // Debugging line
+
+    return data.results || []; // Ensure we're returning the 'results' array
   } catch (error) {
     console.error("Error fetching blog posts:", error);
     return [];

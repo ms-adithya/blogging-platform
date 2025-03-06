@@ -8,8 +8,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 // Function to display blog posts on the page
 async function displayBlogPosts() {
   const blogPosts = await getBlogPosts();
-  const blogContainer = document.getElementById("blog-container");
+  console.log("Blog Posts:", blogPosts); // Debugging line
 
+  if (!Array.isArray(blogPosts)) {
+    console.error("Expected an array but got:", blogPosts);
+    return; // Stop execution to avoid errors
+  }
+
+  const blogContainer = document.getElementById("blog-container");
   blogContainer.innerHTML = ""; // Clear previous content
 
   blogPosts.forEach((post) => {
