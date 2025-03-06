@@ -23,6 +23,37 @@ async function displayBlogPosts() {
   });
 }
 
+// Function to handle registration
+async function handleRegister(event) {
+  event.preventDefault();
+  const username = document.getElementById("reg-username").value;
+  const email = document.getElementById("reg-email").value;
+  const password = document.getElementById("reg-password").value;
+
+  try {
+    const response = await fetch(
+      "https://blogging-platform-2135.onrender.com/api/auth/register/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Registration failed");
+    }
+
+    alert("Registration successful! You can now log in.");
+    document.getElementById("register-form").reset();
+  } catch (error) {
+    console.error("Error registering:", error);
+    alert("Error during registration. Please try again.");
+  }
+}
+
 // Function to handle login
 async function handleLogin(event) {
   event.preventDefault();
@@ -65,6 +96,7 @@ async function handleCreatePost(event) {
 // Function to update UI after login
 function updateUIAfterLogin() {
   document.getElementById("login-section").style.display = "none";
+  document.getElementById("register-section").style.display = "none";
   document.getElementById("logout-button").style.display = "block";
   document.getElementById("create-post-section").style.display = "block";
 }
@@ -72,12 +104,16 @@ function updateUIAfterLogin() {
 // Function to update UI after logout
 function updateUIAfterLogout() {
   document.getElementById("login-section").style.display = "block";
+  document.getElementById("register-section").style.display = "block";
   document.getElementById("logout-button").style.display = "none";
   document.getElementById("create-post-section").style.display = "none";
 }
 
 // Function to set up event listeners
 function setupEventListeners() {
+  document
+    .getElementById("register-form")
+    .addEventListener("submit", handleRegister);
   document.getElementById("login-form").addEventListener("submit", handleLogin);
   document
     .getElementById("logout-button")

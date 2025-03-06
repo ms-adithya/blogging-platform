@@ -88,4 +88,29 @@ function logoutUser() {
   console.log("User logged out.");
 }
 
-export { getBlogPosts, createBlogPost, loginUser, logoutUser };
+// User registration function
+async function registerUser(username, email, password) {
+  try {
+    const response = await fetch(`${apiBaseUrl}/auth/register/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Registration failed. Please try again.");
+    }
+
+    const data = await response.json();
+    localStorage.setItem("accessToken", data.tokens.access); // Store access token
+    console.log("Registration successful!");
+    return data;
+  } catch (error) {
+    console.error("Error registering user:", error);
+    return null;
+  }
+}
+
+export { getBlogPosts, createBlogPost, loginUser, logoutUser, registerUser };
