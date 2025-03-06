@@ -3,22 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Blog List</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Blogging Platform</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
-    <header>
-      <h1>My Blog</h1>
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="create.html">Create Post</a>
-      </nav>
-    </header>
+    <h1>Welcome to the Blogging Platform</h1>
 
-    <main id="blog-list">
-      <!-- Blog posts will be dynamically added here -->
-    </main>
+    <!-- Login Section -->
+    <div id="login-section">
+      <h2>Login</h2>
+      <form id="login-form">
+        <input type="text" id="username" placeholder="Username" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+      </form>
+    </div>
 
-    <script src="assets/js/script.js"></script>
+    <!-- Logout Button -->
+    <button id="logout-button" style="display: none">Logout</button>
+
+    <!-- Blog Post Creation Section (Hidden Until Login) -->
+    <div id="create-post-section" style="display: none">
+      <h2>Create a Blog Post</h2>
+      <form id="create-post-form">
+        <input type="text" id="post-title" placeholder="Post Title" required />
+        <textarea
+          id="post-content"
+          placeholder="Post Content"
+          required
+        ></textarea>
+        <button type="submit">Create Post</button>
+      </form>
+    </div>
+
+    <!-- Blog Posts Section -->
+    <h2>Blog Posts</h2>
+    <div id="blog-container"></div>
+
+    <script type="module" src="assets/JS/script.js"></script>
   </body>
 </html>
