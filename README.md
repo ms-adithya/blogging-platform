@@ -15,21 +15,26 @@ blogging-platform/
 │   ├── create.html         # Blog post creation page
 │   ├── edit.html           # Blog post editing page
 │   ├── comment.html        # Comments section
+│   ├── blog.html           # Blog details section
 │   ├── assets/
-│   │   ├── CSS/
+│   │   ├── css/
 │   │   │   ├── styles.css  # Styling
-│   │   ├── JS/
+│   │   ├── js/
 │   │   │   ├── script.js   # Main JS logic
 │   │   │   ├── app.js      # App-specific logic
 │   │   │   ├── api.js      # API calls
 │
-│── backend/                # Django backend
 │   ├── manage.py
 │   ├── blogs/
 │   │   ├── models.py
 │   │   ├── views.py
 │   │   ├── urls.py
 │   │   ├── serializers.py
+│   │   ├── admin.py
+│   │   ├── app.py
+│   │   ├── filters.py
+│   │   ├── pagination.py
+│   │   ├── permissions.py
 │
 │── README.md               # Project documentation
 │── requirements.txt        # Dependencies for backend
